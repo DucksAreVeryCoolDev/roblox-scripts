@@ -13,18 +13,47 @@ local clearAccessories = true -- Set to false to keep existing accessories
 
 -- Variables
 local character = script.Parent
+local accessoryFolder = script:FindFirstChild('accessories')
 
 -- / Clear
 if clearAccessories == true then
+    
+    for _, instance in character:GetChildren do
 
-  for _, instance in character:GetChildren do
+        if instance:IsA('Accessory') then
 
-    if instance:IsA('Accessory') then
+            instance:Destroy()
 
-      instance:Destroy()
+        end
 
     end
 
-  end
-
 end
+
+
+-- / Add Accessories
+if accessoriesFolder then
+    
+    for _, accessory in accessoriesFolder:GetChildren() do
+        
+        if accessory:IsA('Accessory') then
+            
+            accessory.Parent = character
+            
+        else
+            
+            warn(accessory.Name .. ' is not an accessory!')
+            
+        end
+        
+    end
+    
+else
+    
+    warn('No Accessories Folder')
+    
+end
+
+
+-- / End
+script:Destroy()
